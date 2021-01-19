@@ -1,0 +1,14 @@
+.Paginate{
+    display: flex;
+    padding-bottom: 15px;
+    margin-bottom: 0px;
+}
+.Paginate li {
+    list-style-type: none;
+    padding: 5px 15px;
+    border: 2px solid black;
+    color: white;
+}
+.Paginate a{
+    text-decoration: none;
+}
