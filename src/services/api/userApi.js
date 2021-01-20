@@ -1,7 +1,8 @@
 import axios from 'axios'
 import{removeCookie, fetchCookie} from '../cookies'
 
-const url= 'http://localhost:8000'
+const url='http://quiznodebackend-env.eba-papha6vb.us-east-1.elasticbeanstalk.com/'
+//const url= 'http://localhost:8000'
 
 export const adminFetchScoreApi=async(data)=>{
     try {
