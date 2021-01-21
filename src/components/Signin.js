@@ -29,8 +29,11 @@ const Signin=()=>{
         setResponse(await signInApi(values))
         dispatch(signInAction())
         onSubmitProps.resetForm()
-        if(response===200) return history.push('/')
-        setOpenModal(true)
+        if(response===200){
+            history.push('/')
+        } else{
+            setOpenModal(true)
+        }
     }
     return(
         <>
