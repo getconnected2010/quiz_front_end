@@ -1,7 +1,7 @@
 import axios from 'axios'
 import{fetchCookie} from '../cookies'
 
-const url='https://node-quiz-backend.herokuapp.com/'
+const url='https://node-quiz-backend.herokuapp.com'
 //const url= 'http://localhost:8000'
 
 export const addToListApi=async(data)=>{

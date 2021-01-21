@@ -1,7 +1,7 @@
 import axios from 'axios'
 import{removeCookie, fetchCookie} from '../cookies'
 
-const url='https://node-quiz-backend.herokuapp.com/'
+const url='https://node-quiz-backend.herokuapp.com'
 //const url= 'http://localhost:8000'
 
 export const adminFetchScoreApi=async(data)=>{
