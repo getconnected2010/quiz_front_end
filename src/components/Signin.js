@@ -5,6 +5,7 @@ import {Form, Formik} from 'formik'
 import {useDispatch} from 'react-redux';
 import {signInApi} from '../services/api/userApi'
 import {signInAction} from '../actions/userActions'
+import {assignCookie} from '../services/cookies'
 import {InputField, ButtonComponent} from './FormComponents'
 import ModalPage from './ModalPage';
 
@@ -14,6 +15,7 @@ const Signin=()=>{
     const history = useHistory()
     const [openModal, setOpenModal] = useState(false)
     const [response, setResponse] = useState()
+    const [styleProp, setStyleProp] = useState()
     const initialValues={username:'', password:''}
     const validationSchema= Yup.object({
         username: Yup.string().required('please enter username')
@@ -26,18 +28,21 @@ const Signin=()=>{
                     .matches(/^[a-zA-Z0-9!@#$*+=:.]+$/, 'password can only contain letters, numbers and special characters !@#$*+=:.')
     })
     const handleSubmit=async(values, onSubmitProps)=>{
-        setResponse(await signInApi(values))
-        dispatch(signInAction())
+        const result = await signInApi(values)
         onSubmitProps.resetForm()
-        if(response===200){
+        if(typeof(result)==='object'&&result!==null){
+            await assignCookie(result)
+            dispatch(signInAction())
             history.push('/')
-        } else{
+        }else{
+            setResponse(result)
+            setStyleProp('Error')
             setOpenModal(true)
         }
     }
     return(
         <>
-        <ModalPage openModal={openModal} setOpenModal={setOpenModal} message={response} styleProp={'Error'} />
+        <ModalPage openModal={openModal} setOpenModal={setOpenModal} message={response} styleProp={styleProp} />
         <Formik initialValues={initialValues} validationSchema={validationSchema}
         onSubmit={handleSubmit}>
             {

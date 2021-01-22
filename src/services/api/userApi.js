@@ -1,5 +1,5 @@
 import axios from 'axios'
-import{removeCookie, fetchCookie} from '../cookies'
+import{removeCookie, fetchCookie, userTokenCookie} from '../cookies'
 
 
 let url
@@ -13,10 +13,11 @@ if (process.env.NODE_ENV==='production') {
 
 export const adminFetchScoreApi=async(data)=>{
     try {
+        const userToken = await userTokenCookie()
         const user= await fetchCookie()
         const user_id= user.user_id
         const {username} = data
-        const result= await axios.get(`${url}/user/admin/scores/${user_id}/${username}`, {withCredentials: true})
+        const result= await axios.get(`${url}/user/admin/scores/${user_id}/${username}/${userToken}`, {withCredentials: true})
         if(result && result.data.result) return result.data.result
         return 'error fetching scores'
     } catch (error) {
@@ -67,7 +68,7 @@ export const resetPasswordApi= async(data)=>{
 export const signInApi=async (data)=>{
     try {
         const response= await axios.post(`${url}/user/signin`, data, {withCredentials:true})
-        if(response.status===200) return response.status
+        if(response.status===200) return response.data
         return 'error logging you in'
     }catch(error){
         removeCookie()
