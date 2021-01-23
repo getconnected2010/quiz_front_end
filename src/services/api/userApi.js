@@ -2,14 +2,14 @@ import axios from 'axios'
 import{removeCookie, fetchCookie, userTokenCookie} from '../cookies'
 
 
-let url
-if (process.env.NODE_ENV==='production') {
-    url='https://node-quiz-backend.herokuapp.com'
-} else {
-    url= 'http://localhost:8000'
-}
-//const url='https://node-quiz-backend.herokuapp.com'
-//const url= 'http://localhost:8000'
+// let url
+// if (process.env.NODE_ENV==='production') {
+//     url='https://node-quiz-backend.herokuapp.com'
+// } else {
+//     url= 'http://localhost:8000'
+// }
+
+let url= 'http://localhost:8000'
 
 export const adminFetchScoreApi=async(data)=>{
     try {
