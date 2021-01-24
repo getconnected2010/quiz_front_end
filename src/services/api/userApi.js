@@ -1,6 +1,6 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
-import{assignTknCkie, removeTknCkie, getTknCkie} from '../cookies'
+import{removeTknCkie, getTknCkie} from '../cookies'
 
 
 let url
@@ -10,12 +10,12 @@ if (process.env.NODE_ENV==='production') {
     url= 'http://localhost:8000'
 }
 
+axios.defaults.headers.common['Authorization']= 'mockUserToken'
+
 export const adminFetchScoreApi=async(data)=>{
     try {
         const userToken = await getTknCkie()
         const user_id= await jwtDecode(userToken).user_id
-        //const user= await userProfileCookie()
-        //const user_id= user.user_id
         const {username} = data
         if(!userToken||user_id===null) return 'invalid tokens'
         const result= await axios.get(`${url}/user/admin/scores/${user_id}/${username}/${userToken}`, {withCredentials: true, credentials: 'include'})
@@ -31,7 +31,6 @@ export const delUserApi= async(data)=>{
     try {
         const userToken = await getTknCkie()
         const user_id = await jwtDecode(userToken).user_id
-        //const user = await userProfileCookie()
         data.user_id = user_id
         if(!userToken|| data.user_id===null) return 'invalid tokens'
         const result = await axios.post(`${url}/user/admin/delete/${userToken}`, data, {withCredentials: true})
@@ -47,7 +46,6 @@ export const delUserApi= async(data)=>{
 export const dnGradeApi= async(data)=>{
     try {
         const userToken = await getTknCkie()
-        //const user= await userProfileCookie()
         const user_id= await jwtDecode(userToken).user_id
         data.user_id = user_id
         if(!userToken||data.user_id===null) return 'invalid tokens'
@@ -127,7 +125,6 @@ export const signUpApi=async(data)=>{
 export const resetApi=async(data)=>{
     try {
         const userToken = await getTknCkie()
-        //const user = await userProfileCookie()
         const user_id = await jwtDecode(userToken).user_id
         data.user_id= user_id
         if(!userToken||data.user_id===null) return 'invalid tokens'
@@ -144,7 +141,6 @@ export const resetApi=async(data)=>{
 export const updatePasswordApi=async(data)=>{
     try {
         const userToken = await getTknCkie()
-        //const user= await userProfileCookie()
         const user_id= jwtDecode(userToken).user_id
         data.user_id = user_id
         if(!userToken||data.user_id===null) return 'invalid tokens'
@@ -160,7 +156,6 @@ export const updatePasswordApi=async(data)=>{
 export const updateUsernameApi=async(data)=>{
     try {
         const userToken = await getTknCkie()
-        //const user= await userProfileCookie()
         const user_id= await jwtDecode(userToken).user_id
         data.user_id = user_id
         if(!userToken||data.user_id===null) return 'invalid tokens'
@@ -176,7 +171,6 @@ export const updateUsernameApi=async(data)=>{
 export const upgradeApi= async(data)=>{
     try {
         const userToken = await getTknCkie()
-        //const user= await userProfileCookie()
         const user_id= await jwtDecode(userToken).user_id
         data.user_id = user_id
         if(!userToken||data.user_id===null) return 'invalid tokens'
