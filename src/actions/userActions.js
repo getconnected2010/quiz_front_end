@@ -1,11 +1,14 @@
-import {fetchCookie, removeCookie} from '../services/cookies'
+import jwtDecode from 'jwt-decode'
+import {getTknCkie, removeTknCkie} from '../services/cookies'
 
 export const signInAction=()=>async(dispatch)=>{
     try {
-        const user= await fetchCookie()
+        const userToken= await getTknCkie()
+        const tokenPayload = await jwtDecode(userToken)
+        const user= {user_id: tokenPayload.user_id, admin: tokenPayload.admin}
         dispatch({type:'SIGNIN', payload: user}) 
     } catch (error) {
-        removeCookie()
+        removeTknCkie()
     } 
 }
 

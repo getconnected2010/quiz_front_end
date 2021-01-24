@@ -16,7 +16,7 @@ const ScoreTable = ({array, onClick}) => {
                         }
                         <tr>
                             <td>
-                                <button onClick={onClick}>Clear scores</button>
+                                <button onClick={onClick}>Hide score table</button>
                             </td>
                         </tr>
                     </>

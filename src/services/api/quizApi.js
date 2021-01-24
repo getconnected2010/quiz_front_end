@@ -1,23 +1,22 @@
 import axios from 'axios'
-import{fetchCookie} from '../cookies'
+import jwtDecode from 'jwt-decode'
+import{getTknCkie} from '../cookies'
 
-// let url
-// if (process.env.NODE_ENV==='production') {
-//     url='https://node-quiz-backend.herokuapp.com'
-// } else {
-//     url= 'http://localhost:8000'
-// }
-let url= 'http://localhost:8000'
-
-
-//const url='https://node-quiz-backend.herokuapp.com'
-//const url= 'http://localhost:8000'
+let url
+if (process.env.NODE_ENV==='production') {
+    url='https://node-quiz-backend.herokuapp.com'
+} else {
+    url= 'http://localhost:8000'
+}
 
 export const addToListApi=async(data)=>{
     try {
-        const user = await fetchCookie()
-        data.user_id= user.user_id
-        const result = await axios.post(`${url}/quiz/add`, data, {withCredentials: true})
+        const userToken = await getTknCkie()
+        //const user = await userProfileCookie()
+        const user_id= await jwtDecode(userToken).user_id
+        data.user_id= user_id
+        if(!userToken||data.user_id===null) return 'invalid tokens'
+        const result = await axios.post(`${url}/quiz/add/${userToken}`, data, {withCredentials: true})
         if(result.status===200) return result
         return 'error adding question to database'
     } catch (error) {
@@ -28,10 +27,14 @@ export const addToListApi=async(data)=>{
 
 export const deleteQaApi =async(data)=>{
     try {
-        const user = await fetchCookie()
-        const user_id= user.user_id
-        return await axios.delete(`${url}/quiz/delete/${data}/${user_id}`, {withCredentials: true}, {headers: {"Content-type":"application/json"}} )
+        const userToken = await getTknCkie()
+        //const user = await userProfileCookie()
+        const user_id= jwtDecode(userToken).user_id
+        //const user_id= user.user_id
+        if(!userToken||data.user_id===null) return 'invalid tokens'
+        return await axios.delete(`${url}/quiz/delete/${data}/${user_id}/${userToken}`, {withCredentials: true}, {headers: {"Content-type":"application/json"}}) 
     } catch (error) {
+        console.log(error)
         if(error.response&&error.response.data.msg) return error.response.data.msg
         return 'error deleting question'
     }
@@ -47,11 +50,13 @@ export const fetchQuizApi =async(subject)=>{
 }
 
 export const fetchMyScoresApi=async()=>{
-    const user= await fetchCookie()
-    const user_id= user.user_id
-    if(user_id!==null){
+    const userToken = await getTknCkie()
+    //const user= await userProfileCookie()
+    const user_id= jwtDecode(userToken).user_id
+    //const user_id= user_id
+    if(userToken && user_id!==null){
         try {
-            const result= await axios.get(`${url}/quiz/scores/${user_id}`, {withCredentials: true})
+            const result= await axios.get(`${url}/quiz/scores/${user_id}/${userToken}`, {withCredentials: true})
             return result.data.result
         } catch (error){
             if(error.response && error.response.data.msg) return error.response.data.msg
@@ -61,12 +66,14 @@ export const fetchMyScoresApi=async()=>{
 }
 
 export const recordScoreApi=async(data)=>{
-    const user= await fetchCookie()
-    const user_id= user.user_id
-    if(user_id!==null){
+    const userToken = await getTknCkie()
+    //const user= await userProfileCookie()
+    const user_id= jwtDecode(userToken).user_id
+    //const user_id= user.user_id
+    if(userToken && user_id!==null){
         try {
             data.user_id= user_id
-            const result = await axios.post(`${url}/quiz/score`, data, {withCredentials: true})
+            const result = await axios.post(`${url}/quiz/score/${userToken}`, data, {withCredentials: true})
             return result
         } catch (error) {
             if(error.response && error.response.data.msg) return error.response.data.msg

@@ -1,22 +1,23 @@
 import axios from 'axios'
-import{removeCookie, fetchCookie, userTokenCookie} from '../cookies'
+import jwtDecode from 'jwt-decode'
+import{assignTknCkie, removeTknCkie, getTknCkie} from '../cookies'
 
 
-// let url
-// if (process.env.NODE_ENV==='production') {
-//     url='https://node-quiz-backend.herokuapp.com'
-// } else {
-//     url= 'http://localhost:8000'
-// }
-
-let url= 'http://localhost:8000'
+let url
+if (process.env.NODE_ENV==='production') {
+    url='https://node-quiz-backend.herokuapp.com'
+} else {
+    url= 'http://localhost:8000'
+}
 
 export const adminFetchScoreApi=async(data)=>{
     try {
-        const userToken = await userTokenCookie()
-        const user= await fetchCookie()
-        const user_id= user.user_id
+        const userToken = await getTknCkie()
+        const user_id= await jwtDecode(userToken).user_id
+        //const user= await userProfileCookie()
+        //const user_id= user.user_id
         const {username} = data
+        if(!userToken||user_id===null) return 'invalid tokens'
         const result= await axios.get(`${url}/user/admin/scores/${user_id}/${username}/${userToken}`, {withCredentials: true, credentials: 'include'})
         if(result && result.data.result) return result.data.result
         return 'error fetching scores'
@@ -28,9 +29,12 @@ export const adminFetchScoreApi=async(data)=>{
 
 export const delUserApi= async(data)=>{
     try {
-        const user = await fetchCookie()
-        data.user_id = user.user_id
-        const result = await axios.post(`${url}/user/admin/delete`, data, {withCredentials: true})
+        const userToken = await getTknCkie()
+        const user_id = await jwtDecode(userToken).user_id
+        //const user = await userProfileCookie()
+        data.user_id = user_id
+        if(!userToken|| data.user_id===null) return 'invalid tokens'
+        const result = await axios.post(`${url}/user/admin/delete/${userToken}`, data, {withCredentials: true})
         if(result.status===200) return result.status
         if(result.data.msg) return result.data.msg
         return 'error deleting username'
@@ -42,9 +46,12 @@ export const delUserApi= async(data)=>{
 
 export const dnGradeApi= async(data)=>{
     try {
-        const user= await fetchCookie()
-        data.user_id = user.user_id
-        const result= await axios.post(`${url}/user/admin/dngrade`, data, {withCredentials: true})
+        const userToken = await getTknCkie()
+        //const user= await userProfileCookie()
+        const user_id= await jwtDecode(userToken).user_id
+        data.user_id = user_id
+        if(!userToken||data.user_id===null) return 'invalid tokens'
+        const result= await axios.post(`${url}/user/admin/dngrade/${userToken}`, data, {withCredentials: true})
         if(result.status===200) return result.status
         if(result.data.msg) return result.data.msg
         return 'error down grading username'
@@ -53,6 +60,18 @@ export const dnGradeApi= async(data)=>{
         return 'error down grading username'
     }
 }
+
+// export const refreshTokenApi=async()=>{
+//     try {
+//         const userToken = await getTknCkie()
+//         if(!userToken) return
+//         const response = await axios.get(`${url}/user/refresh/${userToken}`)
+//         if(typeof(response)==='object'&& response!==null) return assignTknCkie(response.data)
+//         removeTknCkie()
+//     } catch (error) {
+//         removeTknCkie()
+//     }
+// }
 
 export const resetPasswordApi= async(data)=>{
     try {
@@ -71,7 +90,7 @@ export const signInApi=async (data)=>{
         if(response.status===200) return response.data
         return 'error logging you in'
     }catch(error){
-        removeCookie()
+        removeTknCkie()
         if (error.response && error.response.data) return error.response.data.msg
         return 'error logging you in'
     }
@@ -81,14 +100,14 @@ export const signoutApi=async()=>{
     try {
         const result = await axios.get(`${url}/user/signout`, {withCredentials: true})
         if(result.status===200){
-            removeCookie()
+            removeTknCkie()
             return result.status
         } else {
-            removeCookie()
+            removeTknCkie()
             return result.data.msg
         }
     } catch (error) {
-        removeCookie()
+        removeTknCkie()
         if(error.response && error.response.data) return error.response.data.msg
         return 'error logging you out. If error persists, contact admin.'
     }
@@ -107,9 +126,12 @@ export const signUpApi=async(data)=>{
 
 export const resetApi=async(data)=>{
     try {
-        const user = await fetchCookie()
-        data.user_id= user.user_id
-        const result = await axios.post(`${url}/user/admin/reset`, data, {withCredentials: true})
+        const userToken = await getTknCkie()
+        //const user = await userProfileCookie()
+        const user_id = await jwtDecode(userToken).user_id
+        data.user_id= user_id
+        if(!userToken||data.user_id===null) return 'invalid tokens'
+        const result = await axios.post(`${url}/user/admin/reset/${userToken}`, data, {withCredentials: true})
         if(result.status===200) return result.status
         if(result.data.msg) return result.data.msg
         return 'error unflagging username'
@@ -121,9 +143,12 @@ export const resetApi=async(data)=>{
 
 export const updatePasswordApi=async(data)=>{
     try {
-        const user= await fetchCookie()
-        data.user_id = user.user_id
-        const result = await axios.post(`${url}/user/update/password`, data, {withCredentials: true})
+        const userToken = await getTknCkie()
+        //const user= await userProfileCookie()
+        const user_id= jwtDecode(userToken).user_id
+        data.user_id = user_id
+        if(!userToken||data.user_id===null) return 'invalid tokens'
+        const result = await axios.post(`${url}/user/update/password/${userToken}`, data, {withCredentials: true})
         if(result.status===200) return result.status
         if(result.data.msg) return result.data.msg
     } catch (error) {
@@ -134,9 +159,12 @@ export const updatePasswordApi=async(data)=>{
 
 export const updateUsernameApi=async(data)=>{
     try {
-        const user= await fetchCookie()
-        data.user_id = user.user_id
-        const result= await axios.post(`${url}/user/update/username`, data, {withCredentials: true})
+        const userToken = await getTknCkie()
+        //const user= await userProfileCookie()
+        const user_id= await jwtDecode(userToken).user_id
+        data.user_id = user_id
+        if(!userToken||data.user_id===null) return 'invalid tokens'
+        const result= await axios.post(`${url}/user/update/username/${userToken}`, data, {withCredentials: true})
         if(result.status===200)return result.status
         if(result.data.msg) return result.data.msg
     } catch (error) {
@@ -147,9 +175,12 @@ export const updateUsernameApi=async(data)=>{
 
 export const upgradeApi= async(data)=>{
     try {
-        const user= await fetchCookie()
-        data.user_id = user.user_id
-        const result= await axios.post(`${url}/user/admin/upgrade`, data, {withCredentials: true})
+        const userToken = await getTknCkie()
+        //const user= await userProfileCookie()
+        const user_id= await jwtDecode(userToken).user_id
+        data.user_id = user_id
+        if(!userToken||data.user_id===null) return 'invalid tokens'
+        const result= await axios.post(`${url}/user/admin/upgrade/${userToken}`, data, {withCredentials: true})
         if(result.status===200) return result.status
         if(result.data.msg) return result.data.msg
         return 'error upgrading username'

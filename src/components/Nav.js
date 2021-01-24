@@ -21,16 +21,14 @@ const Nav = () => {
         <div className='Nav'>
             <Link to='/'>Home</Link>
             <Link to='/about'>About</Link>
-            {
-                admin==='true' && 
+            { admin==='true' && 
                 <>
                     <Link to='/add'>Add to Quiz</Link>
                     <Link to='/admin'>Admin</Link>
                 </>
             }
 
-            {
-                user_id?
+            { user_id?
                 <>
                     <Link to='/profile'>My Profile</Link>
                     <button onClick={logout}>Logout</button>

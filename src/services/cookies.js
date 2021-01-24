@@ -1,9 +1,8 @@
 import Cookies from 'universal-cookie';
-import jwt from 'jwt-decode'
 
 const cookie= new Cookies();
 
-export const assignCookie=async(data)=>{
+export const assignTknCkie=async(data)=>{
     try {
         cookie.set('userToken', data.userToken, {
             maxAge: 60*30,   //in seconds
@@ -16,26 +15,18 @@ export const assignCookie=async(data)=>{
     }
 }
 
-export const fetchCookie=async ()=>{
+export const getTknCkie=async ()=>{
     try {
-        const userJwt= await cookie.get('userToken')
-        const user=  jwt(userJwt)
-        return user
+        return await cookie.get('userToken')
     } catch (error) {
         return {user_id: null, admin: false}
     } 
 }
-export const userTokenCookie=async()=>{
-    try {
-        const userToken = await cookie.get('userToken')
-        return userToken
-    } catch (error) {
-        return null
-    }
-}
-export const removeCookie=()=>{
+
+export const removeTknCkie=()=>{
     try {
         cookie.remove('userToken')
+        cookie.remove('currentToken')
     } catch (error) {
         alert('error removing cookies from your browser')
     }
