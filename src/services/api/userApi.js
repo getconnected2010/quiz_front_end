@@ -4,11 +4,11 @@ import{removeTknCkie, getTknCkie} from '../cookies'
 
 export const adminFetchScoreApi=async(data)=>{
     try {
-        const userToken = await getTknCkie()
-        const user_id= await jwtDecode(userToken).user_id
+        //const userToken = await getTknCkie()
+        //const user_id= await jwtDecode(userToken).user_id
         const {username} = data
-        if(!userToken||user_id===null) return 'invalid tokens'
-        const result= await axiosInstance.get(`/user/admin/scores/${user_id}/${username}/${userToken}`, {withCredentials: true, credentials: 'include'})
+        //if(!userToken||user_id===null) return 'invalid tokens'
+        const result= await axiosInstance.get(`/user/admin/scores/${username}`, {withCredentials: true, credentials: 'include'})
         if(result && result.data.result) return result.data.result
         return 'error fetching scores'
     } catch (error) {
@@ -19,11 +19,11 @@ export const adminFetchScoreApi=async(data)=>{
 
 export const delUserApi= async(data)=>{
     try {
-        const userToken = await getTknCkie()
-        const user_id = await jwtDecode(userToken).user_id
-        data.user_id = user_id
-        if(!userToken|| data.user_id===null) return 'invalid tokens'
-        const result = await axiosInstance.post(`/user/admin/delete/${userToken}`, data, {withCredentials: true})
+        //const userToken = await getTknCkie()
+        //const user_id = await jwtDecode(userToken).user_id
+        //data.user_id = user_id
+        //if(!userToken|| data.user_id===null) return 'invalid tokens'
+        const result = await axiosInstance.post(`/user/admin/delete`, data, {withCredentials: true})
         if(result.status===200) return result.status
         if(result.data.msg) return result.data.msg
         return 'error deleting username'
@@ -35,11 +35,11 @@ export const delUserApi= async(data)=>{
 
 export const dnGradeApi= async(data)=>{
     try {
-        const userToken = await getTknCkie()
-        const user_id= await jwtDecode(userToken).user_id
-        data.user_id = user_id
-        if(!userToken||data.user_id===null) return 'invalid tokens'
-        const result= await axiosInstance.post(`/user/admin/dngrade/${userToken}`, data, {withCredentials: true})
+        //const userToken = await getTknCkie()
+        //const user_id= await jwtDecode(userToken).user_id
+        //data.user_id = user_id
+        //if(!userToken||data.user_id===null) return 'invalid tokens'
+        const result= await axiosInstance.post(`/user/admin/dngrade`, data, {withCredentials: true})
         if(result.status===200) return result.status
         if(result.data.msg) return result.data.msg
         return 'error down grading username'
@@ -67,7 +67,7 @@ export const signInApi=async (data)=>{
         if(response.status===200) return response.data
         return 'error logging you in'
     }catch(error){
-        console.log(error)
+        //console.log(error)
         removeTknCkie()
         if (error.response && error.response.data) return error.response.data.msg
         return 'error logging you in'
@@ -104,11 +104,11 @@ export const signUpApi=async(data)=>{
 
 export const resetApi=async(data)=>{
     try {
-        const userToken = await getTknCkie()
-        const user_id = await jwtDecode(userToken).user_id
-        data.user_id= user_id
-        if(!userToken||data.user_id===null) return 'invalid tokens'
-        const result = await axiosInstance.post(`/user/admin/reset/${userToken}`, data, {withCredentials: true})
+        //const userToken = await getTknCkie()
+        //const user_id = await jwtDecode(userToken).user_id
+        //data.user_id= user_id
+        //if(!userToken||data.user_id===null) return 'invalid tokens'
+        const result = await axiosInstance.post(`/user/admin/reset`, data, {withCredentials: true})
         if(result.status===200) return result.status
         if(result.data.msg) return result.data.msg
         return 'error unflagging username'
@@ -120,11 +120,11 @@ export const resetApi=async(data)=>{
 
 export const updatePasswordApi=async(data)=>{
     try {
-        const userToken = await getTknCkie()
-        const user_id= jwtDecode(userToken).user_id
-        data.user_id = user_id
-        if(!userToken||data.user_id===null) return 'invalid tokens'
-        const result = await axiosInstance.post(`/user/update/password/${userToken}`, data, {withCredentials: true})
+        //const userToken = await getTknCkie()
+        //const user_id= jwtDecode(userToken).user_id
+        //data.user_id = user_id
+        //if(!userToken||data.user_id===null) return 'invalid tokens'
+        const result = await axiosInstance.post(`/user/update/password`, data, {withCredentials: true})
         if(result.status===200) return result.status
         if(result.data.msg) return result.data.msg
     } catch (error) {
@@ -135,11 +135,11 @@ export const updatePasswordApi=async(data)=>{
 
 export const updateUsernameApi=async(data)=>{
     try {
-        const userToken = await getTknCkie()
-        const user_id= await jwtDecode(userToken).user_id
-        data.user_id = user_id
-        if(!userToken||data.user_id===null) return 'invalid tokens'
-        const result= await axiosInstance.post(`/user/update/username/${userToken}`, data, {withCredentials: true})
+        //const userToken = await getTknCkie()
+        //const user_id= await jwtDecode(userToken).user_id
+        //data.user_id = user_id
+        //if(!userToken||data.user_id===null) return 'invalid tokens'
+        const result= await axiosInstance.post(`/user/update/username`, data, {withCredentials: true})
         if(result.status===200)return result.status
         if(result.data.msg) return result.data.msg
     } catch (error) {
@@ -150,11 +150,11 @@ export const updateUsernameApi=async(data)=>{
 
 export const upgradeApi= async(data)=>{
     try {
-        const userToken = await getTknCkie()
-        const user_id= await jwtDecode(userToken).user_id
-        data.user_id = user_id
-        if(!userToken||data.user_id===null) return 'invalid tokens'
-        const result= await axiosInstance.post(`/user/admin/upgrade/${userToken}`, data, {withCredentials: true})
+        //const userToken = await getTknCkie()
+        //const user_id= await jwtDecode(userToken).user_id
+        //data.user_id = user_id
+        //if(!userToken||data.user_id===null) return 'invalid tokens'
+        const result= await axiosInstance.post(`/user/admin/upgrade`, data, {withCredentials: true})
         if(result.status===200) return result.status
         if(result.data.msg) return result.data.msg
         return 'error upgrading username'

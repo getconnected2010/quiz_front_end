@@ -8,7 +8,7 @@ export const assignTknCkie=async(data)=>{
             maxAge: 60*30,   //in seconds
             httpOnly: false,
             //needs to be secure for production
-            secure: false
+            secure: process.env.NODE_ENV==='production'? true: false
         })
     } catch (error) {
         alert('error assigning cookies to your session')
@@ -26,7 +26,6 @@ export const getTknCkie=async ()=>{
 export const removeTknCkie=()=>{
     try {
         cookie.remove('userToken')
-        cookie.remove('currentToken')
     } catch (error) {
         alert('error removing cookies from your browser')
     }

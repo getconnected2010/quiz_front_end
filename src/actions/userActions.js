@@ -8,6 +8,7 @@ export const signInAction=()=>async(dispatch)=>{
         const user= {user_id: tokenPayload.user_id, admin: tokenPayload.admin}
         dispatch({type:'SIGNIN', payload: user}) 
     } catch (error) {
+        dispatch({type: 'SIGNOUT'})
         removeTknCkie()
     } 
 }

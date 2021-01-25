@@ -2,13 +2,11 @@ import axios from 'axios'
 import {assignTknCkie, getTknCkie} from '../../services/cookies'
 
 let url
-// if (process.env.NODE_ENV==='production') {
-//     url='https://node-quiz-backend.herokuapp.com'
-// } else {
-//     url= 'http://localhost:8000'
-// }
-
-url= 'http://localhost:8000'
+if (process.env.NODE_ENV==='production') {
+    url='https://node-quiz-backend.herokuapp.com'
+} else {
+    url= 'http://localhost:8000'
+}
 
 export const axiosInstance= axios.create({
     baseURL: url
@@ -16,7 +14,9 @@ export const axiosInstance= axios.create({
 
 axiosInstance.interceptors.request.use(async(req)=>{
     const userToken = await getTknCkie()
-    req.headers.common['Authorization'] = `${userToken}`
+    if(userToken){
+        req.headers.common['Authorization'] = `${userToken}`
+    }
     return req
 })
 
