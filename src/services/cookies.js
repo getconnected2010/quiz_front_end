@@ -4,7 +4,7 @@ const cookie= new Cookies();
 
 export const assignTknCkie=async(data)=>{
     try {
-        cookie.set('userToken', data.userToken, {
+        cookie.set('userToken', data, {
             maxAge: 60*30,   //in seconds
             httpOnly: false,
             //needs to be secure for production

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { signInAction } from './actions/userActions'
@@ -18,7 +18,6 @@ import AdminPage from './components/admin/AdminPage'
 
 
 const App = () => {
-
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(signInAction())

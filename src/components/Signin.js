@@ -1,11 +1,12 @@
 import {useState} from 'react'
 import {useHistory, Link} from 'react-router-dom'
+import {useDispatch} from 'react-redux';
 import * as Yup from 'yup';
 import {Form, Formik} from 'formik'
-import {useDispatch} from 'react-redux';
-import {signInApi} from '../services/api/userApi'
 import {signInAction} from '../actions/userActions'
-import {assignTknCkie} from '../services/cookies'
+
+import {signInApi} from '../services/api/userApi'
+
 import {InputField, ButtonComponent} from './FormComponents'
 import ModalPage from './ModalPage';
 
@@ -31,7 +32,7 @@ const Signin=()=>{
         const result = await signInApi(values)
         onSubmitProps.resetForm()
         if(typeof(result)==='object'&&result!==null){
-            await assignTknCkie(result)
+            //await assignTknCkie(result)
             dispatch(signInAction())
             history.push('/')
         }else{
