@@ -7,7 +7,6 @@ export const assignTknCkie=async(data)=>{
         cookie.set('userToken', data, {
             maxAge: 60*30,   //in seconds
             httpOnly: false,
-            //needs to be secure for production
             secure: process.env.NODE_ENV==='production'? true: false
         })
     } catch (error) {

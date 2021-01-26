@@ -49,8 +49,10 @@ export const fetchMyScoresApi=async()=>{
     //const user_id= user_id
     try {
         const result= await axiosInstance.get(`/quiz/scores`, {withCredentials: true})
-        return result.data.result
+        if(result&& result.data && result.data.result) return result.data.result 
+        return 'error retrieving scores'
     } catch (error){
+        console.log(error.response.data.msg)
         if(error.response && error.response.data.msg) return error.response.data.msg
         return 'error retrieving scores'
     }
@@ -60,7 +62,6 @@ export const recordScoreApi=async(data)=>{
     const userToken = await getTknCkie()
     if(userToken){
         try {
-            //data.user_id= user_id
             const result = await axiosInstance.post(`/quiz/score`, data, {withCredentials: true})
             return result
         } catch (error) {
