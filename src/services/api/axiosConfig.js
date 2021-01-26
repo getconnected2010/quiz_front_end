@@ -25,16 +25,14 @@ axiosInstance.interceptors.response.use(async(res)=>{
         await assignTknCkie(res.headers.usertoken)
     }
     return res
+    //interceptor for errors
     },async (error)=>{
         //checks if response error has 401 status and redirects to login page
         if(error&&error.response&&error.response.status===401){
             removeTknCkie()
             setTimeout(() => {
                 window.location.href= 'login'
-            }, 3000);
-        }
-        if(error.response.data.msg){
-            alert(error.response.data.msg)
+            }, 5000);
         }
         //checks presence of userTokens after an error response then redirects to login page if no tokens
         if(error){
@@ -42,8 +40,9 @@ axiosInstance.interceptors.response.use(async(res)=>{
             if(user===undefined|| user.user_id===null){
                 setTimeout(() => {
                     window.location.href= 'login'
-                }, 2000);
+                }, 5000);
             }
         }
+        return Promise.reject(error)
     }
 )
