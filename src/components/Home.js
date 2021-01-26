@@ -28,7 +28,6 @@ const Home = () => {
         }
         setSubmitting(false)
     }
-
     return (
     <>
         <ModalPage openModal={openModal} setOpenModal={setOpenModal} message={response} styleProp={styleProp}/>
@@ -48,5 +47,4 @@ const Home = () => {
     </>
     )
 }
-
 export default Home

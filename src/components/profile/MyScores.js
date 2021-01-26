@@ -3,9 +3,6 @@ import {ButtonComponent} from '../FormComponents'
 import {fetchMyScoresApi } from '../../services/api/quizApi'
 import ModalPage from '../ModalPage'
 
-
-
-
 const MyScores = ({submitting, setSubmitting, setScores}) => {
     const [openModal, setOpenModal]= useState(false)
     const [styleProp, setStyleProp]=useState()

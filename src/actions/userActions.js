@@ -17,6 +17,7 @@ export const signOutAction=()=>(dispatch)=>{
     try {
         dispatch({type: 'SIGNOUT'})
     } catch (error) {
+        removeTknCkie()
         alert('error logging you out')
     }   
 }

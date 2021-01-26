@@ -6,9 +6,7 @@ import {updateUsernameApi} from '../../services/api/userApi'
 import { Link } from 'react-router-dom'
 import ModalPage from '../ModalPage'
 
-
 const ChangeMyUsrName=({submitting, setSubmitting, setHideUsernameForm})=>{
-    
     const [openModal, setOpenModal]= useState(false)
     const [styleProp, setStyleProp]=useState()
     const [response, setResponse]= useState()
@@ -27,7 +25,7 @@ const ChangeMyUsrName=({submitting, setSubmitting, setHideUsernameForm})=>{
         setSubmitting(true)
         const result = await updateUsernameApi(values)
         onSubmitProps.resetForm()
-        setHideUsernameForm(true)
+        
         if(result===200){
             setResponse('successfully upgdated username')
             setStyleProp('Success')
@@ -38,7 +36,6 @@ const ChangeMyUsrName=({submitting, setSubmitting, setHideUsernameForm})=>{
         setOpenModal(true)
         setSubmitting(false)
     }
-
     return(
         <>
             <ModalPage openModal={openModal} setOpenModal={setOpenModal} message={response} styleProp={styleProp}/>
@@ -55,7 +52,6 @@ const ChangeMyUsrName=({submitting, setSubmitting, setHideUsernameForm})=>{
                     }
             </Formik>
         </>
-
     )
 }
 export default ChangeMyUsrName

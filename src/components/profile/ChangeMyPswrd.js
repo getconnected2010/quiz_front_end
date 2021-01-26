@@ -29,7 +29,6 @@ const ChangeMyPswrd = ({submitting, setSubmitting, setHidePasswordForm}) => {
     const updatePassword=async(values, onSubmitProps)=>{
         setSubmitting(true)
         const result = await updatePasswordApi(values)
-        setHidePasswordForm(true)
         if(result===200){
             setResponse('successfully upgdated password')
             setStyleProp('Success')

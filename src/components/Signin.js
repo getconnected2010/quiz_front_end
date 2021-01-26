@@ -4,12 +4,9 @@ import {useDispatch} from 'react-redux';
 import * as Yup from 'yup';
 import {Form, Formik} from 'formik'
 import {signInAction} from '../actions/userActions'
-
 import {signInApi} from '../services/api/userApi'
-
 import {InputField, ButtonComponent} from './FormComponents'
 import ModalPage from './ModalPage';
-
 
 const Signin=()=>{
     const dispatch = useDispatch()
@@ -22,11 +19,11 @@ const Signin=()=>{
         username: Yup.string().required('please enter username')
                     .min(4)
                     .max(40)
-                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.]+$/, 'username can only contain letters, numbers and special characters ~!@$^*()_+={}:;.'),
+                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.]+$/, 'Only letters, numbers and special characters ~!@$^*()_+={}:;. allowed'),
         password: Yup.string().required('please enter password')
                     .min(4)
                     .max(12)
-                    .matches(/^[a-zA-Z0-9!@#$*+=:.]+$/, 'password can only contain letters, numbers and special characters !@#$*+=:.')
+                    .matches(/^[a-zA-Z0-9!@#$*+=:.]+$/, 'Only letters, numbers and special characters !@#$*+=:. allowed')
     })
     const handleSubmit=async(values, onSubmitProps)=>{
         const result = await signInApi(values)

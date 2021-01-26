@@ -15,8 +15,6 @@ import ResetPassword from './components/ResetPassword';
 import ProfilePage from './components/profile/ProfilePage'
 import AdminPage from './components/admin/AdminPage'
 
-
-
 const App = () => {
   const dispatch = useDispatch()
   useEffect(() => {

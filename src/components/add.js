@@ -20,19 +20,19 @@ function Add() {
     const validationSchema= Yup.object({
         question: Yup.string().required('required')
                     .max(45)
-                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.?|#%&-]+$/, 'question can only contain letters, numbers and special characters ~!@$^*()_+={}:;.?|#%&-'),
+                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.?|#%&-]+$/, 'Only letters, numbers and special characters ~!@$^*()_+={}:;.?|#%&- allowed'),
         answer1: Yup.string().required('required')
                     .max(45)
-                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.?|#%&-]+$/, 'answer #1 can only contain letters, numbers and special characters ~!@$^*()_+={}:;.?|#%&-'),
+                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.?|#%&-]+$/, 'Only letters, numbers and special characters ~!@$^*()_+={}:;.?|#%&- allowed'),
         answer2: Yup.string().required('required')
                     .max(45)
-                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.?|#%&-]+$/, 'answer #2 can only contain letters, numbers and special characters ~!@$^*()_+={}:;.?|#%&-'),
+                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.?|#%&-]+$/, 'Only letters, numbers and special characters ~!@$^*()_+={}:;.?|#%&- allowed'),
         answer3: Yup.string().required('required')
                     .max(45)
-                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.?|#%&-]+$/, 'answer #3 can only contain letters, numbers and special characters ~!@$^*()_+={}:;.?|#%&-'),
+                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.?|#%&-]+$/, 'Only letters, numbers and special characters ~!@$^*()_+={}:;.?|#%&- allowed'),
         answer4: Yup.string().required('required')
                     .max(45)
-                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.?|#%&-]+$/, 'answer #4 can only contain letters, numbers and special characters ~!@$^*()_+={}:;.?|#%&-'),
+                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.?|#%&-]+$/, 'Only letters, numbers and special characters ~!@$^*()_+={}:;.?|#%&- allowed'),
         correct: Yup.string().required('required')
                     .oneOf([Yup.ref('answer1'), Yup.ref('answer2'), Yup.ref('answer3'), Yup.ref('answer4')],'the correct answer must match one of the answer options'),
         subject: Yup.string().required('required')
@@ -83,5 +83,4 @@ function Add() {
     </>
     )
 }
-
 export default Add

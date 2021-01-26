@@ -14,12 +14,12 @@ const Signup = () => {
         username: Yup.string().required('username required')
                     .min(4)
                     .max(40)
-                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.]+$/, 'username can only contain letters, numbers and special characters ~!@$^*()_+={}:;.'),
+                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.]+$/, 'Only letters, numbers and special characters ~!@$^*()_+={}:;. allowed'),
         newPassword: Yup.string().required('password field required')
                     .min(6)
                     .max(12)
                     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$*+=:.])/, 'password must contain lower case letter, upper case letter, number and special character from !@#$*+=:.')
-                    .matches(/^[a-zA-Z0-9!@#$*+=:.]+$/, 'password can only contain letters, numbers and special characters !@#$*+=:.'),
+                    .matches(/^[a-zA-Z0-9!@#$*+=:.]+$/, 'Only letters, numbers and special characters !@#$*+=:. allowed'),
         confirm: Yup.string().required('password confirmation fielf required')
                     .oneOf([Yup.ref('newPassword')], "password fields don't match"),
         dob: Yup.string().required('a four digit number required').length(4)
@@ -47,6 +47,7 @@ const Signup = () => {
                         <div className="Form">
                             <h1>Sign Up</h1>
                             <Form>
+                                
                                 <InputField label={'User name: '} name={'username'} type={'text'} placeholder={'username'} />
 
                                 <InputField label={'Password: '} name={'newPassword'} type={'password'} placeholder={'password'} />
@@ -54,9 +55,9 @@ const Signup = () => {
                                 <InputField label={'Confirm password: '} name={'confirm'} type={'password'} placeholder={'confirm password'} />
                                 
                                 <InputField label={'Your birthday (MMDD): '} name={'dob'} type={'text'} placeholder={"we'll use this to retrieve forgotten passwords"} />
-
+                                <span><b>password must contain:<br/> lower case letter,<br/> upper case letter,<br/> number and<br/> special character from !@#$*+=:.</b></span>
                                 <ButtonComponent type={'submit'} label={formik.isSubmitting?<>Submitting</>:<>Sign up</>}/>
-                        
+                                
                             </Form>
                         </div>
                     )
@@ -66,6 +67,3 @@ const Signup = () => {
     )
 }
 export default Signup
-
-
-

@@ -6,13 +6,11 @@ import MyScores from './MyScores'
 import ChangeMyUsrName from './ChangeMyUsrName'
 import ChangeMyPswrd from './ChangeMyPswrd'
 
-
 const ProfilePage = () => {
     const [scores, setScores] = useState([])
     const [hideUsernameForm, setHideUsernameForm] = useState(true)
     const [hidePasswordForm, setHidePasswordForm] = useState(true)
     const [submitting, setSubmitting] = useState(false)
-
     return (
         <div className='Profile'>
             {
@@ -21,14 +19,12 @@ const ProfilePage = () => {
                 :
                     <MyScores submitting={submitting} setSubmitting={setSubmitting} setScores={setScores}/>
             }
-            
             {
                 hideUsernameForm?
                     <ButtonComponent onClick={()=>setHideUsernameForm(false)} label={submitting?'please wait...':"Change my username"} disabled={submitting}/> 
                 :
                     <ChangeMyUsrName submitting={submitting} setSubmitting={setSubmitting} setHideUsernameForm={setHideUsernameForm} />
-            }
-              
+            }             
             {
                 hidePasswordForm? 
                     <ButtonComponent onClick={()=>setHidePasswordForm(false)} label={submitting?'please wait...':'Change my password'} disabled={submitting}/>
@@ -40,4 +36,3 @@ const ProfilePage = () => {
 }
 
 export default ProfilePage
-

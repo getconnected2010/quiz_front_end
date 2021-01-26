@@ -14,7 +14,7 @@ const Nav = () => {
     const logout=async()=>{
         await signoutApi()
         dispatch(signOutAction())
-        history.push('/')
+        history.push('/login')
     }
     window.addEventListener('unload', logout)
     return (
@@ -27,7 +27,6 @@ const Nav = () => {
                     <Link to='/admin'>Admin</Link>
                 </>
             }
-
             { user_id?
                 <>
                     <Link to='/profile'>My Profile</Link>
@@ -42,7 +41,4 @@ const Nav = () => {
         </div>
     )
 }
-
 export default Nav
-
-

@@ -12,5 +12,4 @@ const ModalPage = ({ openModal, setOpenModal, message, styleProp }) => {
         </Modal>
     )
 }
-
 export default ModalPage

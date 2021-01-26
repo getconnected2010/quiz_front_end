@@ -5,7 +5,6 @@ import {InputField, ButtonComponent} from './FormComponents'
 import {resetPasswordApi} from '../services/api/userApi'
 import ModalPage from './ModalPage'
 
-
 const ResetPassword = () => {
     const [response, setResponse]= useState()
     const [styleProp, setStyleProp] = useState()
@@ -15,11 +14,11 @@ const ResetPassword = () => {
         username: Yup.string().required('please enter username')
                     .min(4)
                     .max(40)
-                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.]+$/, 'username can only contain letters, numbers and special characters ~!@$^*()_+={}:;.'),
+                    .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.]+$/, 'Only letters, numbers and special characters ~!@$^*()_+={}:;. allowed'),
         password: Yup.string().required('please enter a password')
                     .min(4)
                     .max(12)
-                    .matches(/^[a-zA-Z0-9!@#$*+=:.]+$/, 'password can only contain letters, numbers and special characters !@#$*+=:.'),
+                    .matches(/^[a-zA-Z0-9!@#$*+=:.]+$/, 'Only letters, numbers and special characters !@#$*+=:. allowed'),
         confirm: Yup.string().required('please confirm your password')
                     .oneOf([Yup.ref('password'),''],"passwords dont't match"),
         dob: Yup.string().required('enter your birthday in two digit month and two digit date format')
@@ -60,5 +59,4 @@ const ResetPassword = () => {
     </>
     )
 }
-
 export default ResetPassword

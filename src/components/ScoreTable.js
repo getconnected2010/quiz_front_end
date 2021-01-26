@@ -27,5 +27,4 @@ const ScoreTable = ({array, onClick}) => {
         </div>
     )
 }
-
 export default ScoreTable
