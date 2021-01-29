@@ -8,6 +8,7 @@ import ModalPage from '../ModalPage'
 
 
 const ChangeMyPswrd = ({submitting, setSubmitting, setHidePasswordForm}) => {
+    //sets modal props of open/close, error/success style, text displayed as response
     const [openModal, setOpenModal]= useState(false)
     const [styleProp, setStyleProp]=useState()
     const [response, setResponse]= useState()
@@ -16,25 +17,28 @@ const ChangeMyPswrd = ({submitting, setSubmitting, setHidePasswordForm}) => {
         password: Yup.string().required('Required')
                     .min(4)
                     .max(12)
+                     //regex to only allow these charactes through
                     .matches(/^[a-zA-Z0-9!@#$*+=:.]+$/, 'password can only contain letters, numbers and special characters !@#$*+=:.'),
         
         newPassword: Yup.string().required('Required')
                     .min(6)
                     .max(12)
+                    //regex to enforce atleast one character from each range
                     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$*+=:.])/, 'password must contain lower case letter, upper case letter, number and special character from !@#$*+=:.')
+                    //regex to limit options from within these characters
                     .matches(/^[a-zA-Z0-9!@#$*+=:.]+$/, 'password can only contain letters, numbers and special characters from !@#$*+=:.'),
-        
-        confirm: Yup.string().required('Required').oneOf([Yup.ref('newPassword'),''], "passwords don't match")
+
+        confirm: Yup.string().required('Required').oneOf([Yup.ref('newPassword'),''], "passwords don't match") //matches password inputs
     })
     const updatePassword=async(values, onSubmitProps)=>{
         setSubmitting(true)
         const result = await updatePasswordApi(values)
         if(result===200){
-            setResponse('successfully upgdated password')
+            setResponse('successfully upgdated password') //sets a green success background for modal
             setStyleProp('Success')
         } else{
             setResponse(result)
-            setStyleProp('Error')
+            setStyleProp('Error') //sets a red error bacground for modal
         }
         onSubmitProps.resetForm()
         setOpenModal(true)

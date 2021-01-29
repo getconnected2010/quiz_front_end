@@ -18,7 +18,7 @@ import AdminPage from './components/admin/AdminPage'
 const App = () => {
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(signInAction())
+    dispatch(signInAction())  //checks to see if logged user on app load and refreshes
   }, [dispatch])
 
   return (

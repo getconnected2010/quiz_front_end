@@ -1,5 +1,6 @@
 import React from 'react'
 
+//score table to display results from score-table api calls
 const ScoreTable = ({array, onClick}) => {
     return (
         <div>

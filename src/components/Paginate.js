@@ -1,5 +1,6 @@
 import '../css/paginate.css'
 
+//receives props from 'list' page and enables pagination rendered in the list page.
 const Paginate=({list, setStartIndex, startIndex, listPerPage})=>{
     const pages = Math.ceil(list.length / listPerPage) 
     const pageArray=[]

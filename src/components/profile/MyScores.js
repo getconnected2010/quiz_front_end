@@ -10,9 +10,9 @@ const MyScores = ({submitting, setSubmitting, setScores}) => {
     const fetchScores= async()=>{
         setSubmitting(true)
         const result = await fetchMyScoresApi()
-        if(Array.isArray(result)){
+        if(Array.isArray(result)){ //checks if api response was an array. if array, success placed into table.
             setScores(result)
-        }else{
+        }else{                      //if api response is a string, its error and set into modal message
             setResponse(result)
             setStyleProp('Error')
             setOpenModal(true)

@@ -10,13 +10,14 @@ import ModalPage from './ModalPage'
 
 function Add() {
     const dispatch = useDispatch()
+    //after an api call, a modal page will display success or error message. modal props are set using styleprop and response
     const [openModal, setOpenModal]= useState(false)
     const [styleProp, setStyleProp]=useState()
     const [response, setResponse]= useState()
     const[submitting, setSubmitting] = useState(false)
 
     const initialValues={question:'', answer1:'', answer2:'', answer3:'', answer4:'', correct:'', subject:''}
-    const selectOptions= ['', 'Geography', 'General', 'Science', 'History']
+    const selectOptions= ['', 'Geography', 'General', 'Science', 'History']  //a predefined input for a select option.
     const validationSchema= Yup.object({
         question: Yup.string().required('required')
                     .max(45)
@@ -34,9 +35,10 @@ function Add() {
                     .max(45)
                     .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.?|#%&-]+$/, 'Only letters, numbers and special characters ~!@$^*()_+={}:;.?|#%&- allowed'),
         correct: Yup.string().required('required')
+                    //ensures 'correct' field matches atleast one of the other fields.
                     .oneOf([Yup.ref('answer1'), Yup.ref('answer2'), Yup.ref('answer3'), Yup.ref('answer4')],'the correct answer must match one of the answer options'),
         subject: Yup.string().required('required')
-                    .oneOf(selectOptions)
+                    .oneOf(selectOptions)  //predefines an array of options as an input.
     })
     const onSubmit= async (values, onSubmitProps)=>{
         setSubmitting(true)

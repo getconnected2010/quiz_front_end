@@ -6,6 +6,7 @@ import {signoutApi} from '../services/api/userApi'
 import {signOutAction} from '../actions/userActions'
 
 const Nav = () => {
+    //nav bar displays different tabs and buttons depending on logged user and admin status
     const history= useHistory()
     const dispatch=useDispatch()
     const user = useSelector(state=>state.user)

@@ -1,6 +1,7 @@
 import jwtDecode from 'jwt-decode'
 import {getTknCkie, removeTknCkie} from '../services/cookies'
 
+//updates a redux state of logged in user
 export const signInAction=()=>async(dispatch)=>{
     try {
         const userToken= await getTknCkie()
@@ -12,7 +13,7 @@ export const signInAction=()=>async(dispatch)=>{
         removeTknCkie()
     } 
 }
-
+//removes a logged in user from redux state
 export const signOutAction=()=>(dispatch)=>{
     try {
         dispatch({type: 'SIGNOUT'})

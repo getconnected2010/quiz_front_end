@@ -1,10 +1,10 @@
-import jwtDecode from 'jwt-decode'
 import{getTknCkie} from '../cookies'
 import {axiosInstance} from './axiosConfig'
 
-export const addToListApi=async(data)=>{
+//adds a question/answer to database
+export const addToListApi=async(data)=>{ 
     try {
-        const result = await axiosInstance.post(`/quiz/add`, data, {withCredentials: true})
+        const result = await axiosInstance.post(`/quiz/add`, data)
         if(result.status===200) return result
         return 'error adding question to database'
     } catch (error) {
@@ -13,9 +13,10 @@ export const addToListApi=async(data)=>{
     }
 }
 
+//deletes a question from database
 export const deleteQaApi =async(data)=>{
     try {
-        return await axiosInstance.delete(`/quiz/delete/${data}`, {withCredentials: true}, {headers: {"Content-type":"application/json"}}) 
+        return await axiosInstance.delete(`/quiz/delete/${data}`)
     } catch (error) {
         console.log(error)
         if(error.response&&error.response.data.msg) return error.response.data.msg
@@ -23,9 +24,10 @@ export const deleteQaApi =async(data)=>{
     }
 }
 
+//collects questions from database by subject
 export const fetchQuizApi =async(subject)=>{
     try {
-        return await axiosInstance.get(`/quiz/list/${subject}`, {withCredentials: true})
+        return await axiosInstance.get(`/quiz/list/${subject}`)
     } catch (error) {
         if(error.response&& error.response.data.msg) return error.response.data.msg
         return 'error fetching questions from database'
@@ -34,7 +36,7 @@ export const fetchQuizApi =async(subject)=>{
 
 export const fetchMyScoresApi=async()=>{
     try {
-        const result= await axiosInstance.get(`/quiz/scores`, {withCredentials: true})
+        const result= await axiosInstance.get(`/quiz/scores`)
         if(result&& result.data && result.data.result) return result.data.result 
         return 'error retrieving scores'
     } catch (error){
@@ -44,11 +46,14 @@ export const fetchMyScoresApi=async()=>{
     }
 }
 
+
+//if there is a logged user, it automatically records score in database.
+//if no logged user, it fn doesn't run
 export const recordScoreApi=async(data)=>{
     const userToken = await getTknCkie()
     if(userToken){
         try {
-            const result = await axiosInstance.post(`/quiz/score`, data, {withCredentials: true})
+            const result = await axiosInstance.post(`/quiz/score`, data)
             return result
         } catch (error) {
             if(error.response && error.response.data.msg) return error.response.data.msg

@@ -3,6 +3,7 @@ import Modal from 'react-modal'
 import { ButtonComponent } from './FormComponents'
 import '../css/modalPage.css'
 
+//reusable modal component to display messages.
 Modal.setAppElement('#root')
 const ModalPage = ({ openModal, setOpenModal, message, styleProp }) => {
     return (

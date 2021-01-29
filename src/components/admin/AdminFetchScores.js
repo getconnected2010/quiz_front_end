@@ -7,13 +7,14 @@ import {adminFetchScoreApi} from '../../services/api/userApi'
 import ModalPage from '../ModalPage'
 
 const AdminFetchScores = ({setScores, setShowScores, submitting, setSubmitting}) => {
-    const [openModal, setOpenModal]= useState(false)
-    const [styleProp, setStyleProp]=useState()
-    const [response, setResponse]= useState()
+    const [openModal, setOpenModal]= useState(false) //controls if modal will be displayed
+    const [styleProp, setStyleProp]=useState() //sets up a style for modal. 'error' or 'success' styles will reveal 'red' or 'green' modal background
+    const [response, setResponse]= useState()  //sets a message to be displayed in the modal
 
-    const gtScoreInit={username:''}
+    const gtScoreInit={username:''}  //initial values for formik
     const gtScoreSchema= Yup.object({
         username: Yup.string().required('Scores of which username?')
+                    //this regex only allows these characters as a username input
                     .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.]+$/, 'username can only contain letters, numbers and special characters ~!@$^*()_+={}:;.')
                     .min(4)
                     .max(40)
@@ -21,7 +22,7 @@ const AdminFetchScores = ({setScores, setShowScores, submitting, setSubmitting})
     const gtScoreSubmit=async(values, onSubmitProps)=>{
         setSubmitting(true)
         const result= await adminFetchScoreApi(values)
-        if(Array.isArray(result)){
+        if(Array.isArray(result)){  //checks if result is an array. if array, its successful api call displays result. if string, its an api error
             setScores(result)
         } else{
             setScores([])

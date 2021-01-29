@@ -9,6 +9,7 @@ import AdminFetchScores from './AdminFetchScores'
 import '../../css/adminPage.css'
 
 const AdminPage = () => {
+    //this is main admin page. all other admin functions are imported and displayed using show/hide states
     const [scores, setScores] = useState([])
     const [showFlagged, setShowFlagged] = useState(false)
     const [showDelete, setShowDelete] = useState(false)

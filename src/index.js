@@ -8,6 +8,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+//creates a redux store accessible throughout the app
 const store= createStore(Reducers, compose(applyMiddleware(thunk)))
 ReactDOM.render(
     <Provider store={store}>

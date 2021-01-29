@@ -2,6 +2,7 @@ import Cookies from 'universal-cookie';
 
 const cookie= new Cookies();
 
+//receives a jwt token from server and assigns it in cookie to persist user
 export const assignTknCkie=async(data)=>{
     try {
         cookie.set('userToken', data, {
@@ -14,6 +15,7 @@ export const assignTknCkie=async(data)=>{
     }
 }
 
+//retrieves stored jwt token off cookie to identify current user
 export const getTknCkie=async ()=>{
     try {
         return await cookie.get('userToken')
@@ -22,6 +24,7 @@ export const getTknCkie=async ()=>{
     } 
 }
 
+//removes stored cookie tokens. usually called on logout and 401 status code from server
 export const removeTknCkie=()=>{
     try {
         cookie.remove('userToken')

@@ -1,12 +1,14 @@
 import React from 'react'
 import {Field, ErrorMessage} from 'formik'
 
+//reusable button component
 export const ButtonComponent=({type, id, label, disabled, onClick, style})=>{
     return(
         <button type={type} id={id} disabled={disabled} onClick={onClick} style={style}>{label}</button>
     )
 }
 
+//reusable input component with an error message displayed in red color
 export const InputField=({label, name, type, placeholder})=>{
     return(
         <div>
@@ -17,6 +19,7 @@ export const InputField=({label, name, type, placeholder})=>{
     )
 }
 
+//reusable input component with an error message displayed in red color
 export const SelectField=({label, name, selectOptions})=>{
     return(
         <div>

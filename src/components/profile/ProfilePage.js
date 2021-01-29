@@ -7,6 +7,7 @@ import ChangeMyUsrName from './ChangeMyUsrName'
 import ChangeMyPswrd from './ChangeMyPswrd'
 
 const ProfilePage = () => {
+    //main profile page. imports profile functions and toggles their page diplay
     const [scores, setScores] = useState([])
     const [hideUsernameForm, setHideUsernameForm] = useState(true)
     const [hidePasswordForm, setHidePasswordForm] = useState(true)

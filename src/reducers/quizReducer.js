@@ -5,7 +5,7 @@ const quizReducer=(state=[], action)=>{
         case 'FETCH':
             return action.payload
         case 'DELETE':
-            return state.filter(item=> item.id!==Number(action.payload))
+            return state.filter(item=> item.id!==Number(action.payload)) //removes an item when the id matches
         default:
             return state
     }

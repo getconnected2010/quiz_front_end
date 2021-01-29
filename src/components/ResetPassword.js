@@ -18,11 +18,16 @@ const ResetPassword = () => {
         password: Yup.string().required('please enter a password')
                     .min(4)
                     .max(12)
-                    .matches(/^[a-zA-Z0-9!@#$*+=:.]+$/, 'Only letters, numbers and special characters !@#$*+=:. allowed'),
-        confirm: Yup.string().required('please confirm your password')
+                    //regex to enforce atleast one character from each range
+                    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$*+=:.])/, 'password must contain lower case letter, upper case letter, number and special character from !@#$*+=:.')
+                    //regex to limit options from within these characters
+                    .matches(/^[a-zA-Z0-9!@#$*+=:.]+$/, 'password can only contain letters, numbers and special characters from !@#$*+=:.'),
+        confirm: Yup.string().required('please confirm password')
+                    //checks if pass confirm matches password field
                     .oneOf([Yup.ref('password'),''],"passwords dont't match"),
         dob: Yup.string().required('enter your birthday in two digit month and two digit date format')
                 .length(4)
+                //regex to allow only numbers
                 .matches(/^[0-9]+$/, 'enter your birthday in two digit month and two digit date format')
     })
     const onSubmit=async(values, onSubmitProps)=>{

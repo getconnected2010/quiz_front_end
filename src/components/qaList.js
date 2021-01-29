@@ -7,6 +7,8 @@ import Paginate from './Paginate'
 import {recordScoreApi, deleteQaApi} from '../services/api/quizApi'
 import ModalPage from './ModalPage';
 
+//displays list of questions with five per page.
+//At last page button to calculate score.
 const QaList=()=>{
     const dispatch = useDispatch()
     const list= useSelector(state=>state.qa)
@@ -17,7 +19,7 @@ const QaList=()=>{
     const [response, setResponse]= useState()
     const[submitting, setSubmitting] = useState(false)
     const [startIndex, setStartIndex] = useState(0)
-    const listPerPage = 5
+    const listPerPage = 5                             //list of questions per page
     const endIndex = startIndex + listPerPage
     const quiz = list.slice(startIndex, endIndex)
     const [answers, setAnswers] = useState({})
@@ -25,14 +27,14 @@ const QaList=()=>{
     const [score, setScore] = useState(0)
     
     const handleChange =(e)=>{
-        setAnswers({...answers, [e.target.name]: e.target.value})
+        setAnswers({...answers, [e.target.name]: e.target.value})  //collects ansewer values to be used to calculate score
         setSubject(e.target.id)
     }
     const handleSubmit=(e)=>{
         e.preventDefault()
-        setScore(Object.values(answers).filter(item=>item==="true").length)
-        const radios = document.querySelectorAll("input[type='radio']")
-        radios.forEach(radio=>radio.checked=false)
+        setScore(Object.values(answers).filter(item=>item==="true").length) //creates an array from values of 'answers' object and filters 'true' as correct
+        const radios = document.querySelectorAll("input[type='radio']") //grabs all radio inputs
+        radios.forEach(radio=>radio.checked=false) //resets radio inputs
         setStartIndex(endIndex)
     }
     const checkScore=async()=>{
@@ -48,7 +50,7 @@ const QaList=()=>{
         setOpenModal(true)
         setSubmitting(false)
     }
-    const deleteQA=async (e)=>{
+    const deleteQA=async (e)=>{ //delete api call available only to user with admin priviledge
         e.preventDefault()
         setSubmitting(true)
         const result= await deleteQaApi(e.target.id)

@@ -14,10 +14,10 @@ const Home = () => {
     const [styleProp, setStyleProp]=useState()
     const [response, setResponse]= useState()
     const[submitting, setSubmitting] = useState(false)
-
+    //makes an api call to fetch questions of specific subject and redirects page to 'list'.
     const fetchQuiz=async(e)=>{
         setSubmitting(true)
-        const result= await (fetchQuizApi(e.target.id))
+        const result= await (fetchQuizApi(e.target.id)) //the e.target.id value defines the subject column in database table
         if(Array.isArray(result.data)){
             dispatch(fetchQuizAction(result.data))
             history.push('/list')

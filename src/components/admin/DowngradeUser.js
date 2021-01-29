@@ -7,15 +7,16 @@ import {dnGradeApi} from '../../services/api/userApi'
 import ModalPage from '../ModalPage'
 
 const DowngradeUser = ({setShowDowngrade, submitting, setSubmitting}) => {
-    const [openModal, setOpenModal]= useState(false)
-    const [styleProp, setStyleProp]=useState()
-    const [response, setResponse]= useState()
+    const [openModal, setOpenModal]= useState(false) //controls if modal will be displayed
+    const [styleProp, setStyleProp]=useState() //sets modal style background as red or green depending on 'error' or 'success' response
+    const [response, setResponse]= useState() //sets message in modal
 
     const dnGradeInit={username:'', password:''}
     const dnGradeSchema= Yup.object({
         username: Yup.string().required('username to be up-graded is required')
                     .min(4)
                     .max(40)
+                    //regex to only allow these charactes through
                     .matches(/^[ a-zA-Z0-9~!@$^*()_+={}:;.]+$/, 'username can only contain letters, numbers and special characters ~!@$^*()_+={}:;.'),
         password: Yup.string().required('admin password is required')
                     .min(4)
@@ -27,10 +28,10 @@ const DowngradeUser = ({setShowDowngrade, submitting, setSubmitting}) => {
         const result = await dnGradeApi(values)
         if(result===200){
             setResponse('successfully down-graded username')
-            setStyleProp('Success')
+            setStyleProp('Success')  //sets a green success background for modal
         } else{
             setResponse(result)
-            setStyleProp('Error')
+            setStyleProp('Error') //sets a red error bacground for modal
         }
         setOpenModal(true)
         onSubmitProps.resetForm()

@@ -29,7 +29,6 @@ const Signin=()=>{
         const result = await signInApi(values)
         onSubmitProps.resetForm()
         if(typeof(result)==='object'&&result!==null){
-            //await assignTknCkie(result)
             dispatch(signInAction())
             history.push('/')
         }else{
